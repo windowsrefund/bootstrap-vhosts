@@ -6,8 +6,4 @@ class apache {
 
 	package { $packages: ensure => installed }
 
-	# TODOs
-	#
-	# rm default config
-	# ensure service is not running since we're going with Docker
 }

@@ -5,7 +5,7 @@ define apache::vhost(
 
 	include apache
 
-	file { 
+	file {
 		"conf-$name":
 			path => "${apache::conf_dir}/${name}.conf",
 			content => template("apache/vhost.conf.erb"),
@@ -20,6 +20,4 @@ define apache::vhost(
 			require => Package[apache2];
 		
 	}
-
-	# TODO: manage symlink on Debian based on enabled 
 }	
