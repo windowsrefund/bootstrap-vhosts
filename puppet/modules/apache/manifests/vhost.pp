@@ -7,7 +7,7 @@ define apache::vhost(
 
 	file { 
 		"conf-$name":
-			path => "${apache::conf_dir}/name.conf",
+			path => "${apache::conf_dir}/${name}.conf",
 			content => template("apache/vhost.conf.erb"),
 			require => Package[apache2];
 		"docroot-$name":
