@@ -15,7 +15,7 @@ define apache::vhost(
 			owner => 0,
 			group => 0,
 			mode => 0644,
-			source => "modules/apache/$name",
+			source => "puppet:///modules/apache/$name",
 			recurse => true,
 			require => Package[apache2];
 		
