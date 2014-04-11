@@ -21,3 +21,20 @@ $DOCKER rmi -f $DOCKER_REPO &> /dev/null
 $DOCKER build -q --rm=true -t $DOCKER_REPO .
 
 # run puppet
+$DOCKER run -d $DOCKER_REPO \
+  puppet apply --modulepath=/root/puppet/modules /root/puppet/manifests/site.pp > /dev/null
+
+CID=$($DOCKER ps -q -l)
+echo "Wating for container $CID"
+$DOCKER wait $CID
+
+echo "Committing changes and shutting down container $CID"
+$DOCKER commit -m="Puppetized" --run='{ "Cmd": ["/usr/sbin/apachectl start"] }' $CID $DOCKER_REPO
+$DOCKER stop $CID
+$DOCKER rm $CID
+
+# fire when ready!
+printf "Run finished product... "
+$DOCKER run -d -p 80:80 -p 81:81 $DOCKER_REPO
+[ $? -eq 0 ] && echo "OK" || echo "Failed"
+
