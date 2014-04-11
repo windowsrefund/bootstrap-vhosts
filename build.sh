@@ -18,6 +18,6 @@ error() {
 [ -f Dockerfile ] || error "Missing Dockerfile"
 
 $DOCKER rmi -f $DOCKER_REPO &> /dev/null
-$DOCKER -q --rm=true -t $DOCKER_REPO .
+$DOCKER build -q --rm=true -t $DOCKER_REPO .
 
 # run puppet
