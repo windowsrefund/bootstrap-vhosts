@@ -35,6 +35,6 @@ $DOCKER rm $CID
 
 # fire when ready!
 printf "Run finished product... "
-$DOCKER run -d -p 80:80 -p 81:81 $DOCKER_REPO
+$DOCKER run -d -p 80:80 -p 81:81 $DOCKER_REPO /usr/sbin/apache2 -D FOREGROUND
 [ $? -eq 0 ] && echo "OK" || echo "Failed"
 

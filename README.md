@@ -1,42 +1,72 @@
 ```
-angel:~/projects/bootstrap-vhosts master *> >>> ./build.sh tcp://relvpc22:4243
-
-Uploading context 243.7 kB
+angel:~/projects/bootstrap-vhosts master *= >>> ./build.sh tcp://relvpc22:4243
+Uploading context 259.1 kB
 Uploading context 
 Step 0 : from tianon/debian:wheezy
  ---> 2ccbf46862c0
 Step 1 : maintainer Adam Kosmin
- ---> Running in 9385d7e6b174
- ---> e5f7b4ed963b
+ ---> Running in debeb31cb91b
+ ---> 426f8043abc7
 Step 2 : RUN apt-get update && apt-get -y install puppet
- ---> Running in 2f7cb94d1eab
- ---> 8f78ae46d003
+ ---> Running in 519c403259d6
+ ---> 35546f3aa745
 Step 3 : ENV APACHE_RUN_USER www-data
- ---> Running in 2bf8cc4759e8
- ---> ef9ddb6d83d8
+ ---> Running in 5c1433e651c8
+ ---> e086b763f99b
 Step 4 : ENV APACHE_RUN_GROUP www-data
- ---> Running in 278425b4ac73
- ---> 637f30b7811c
+ ---> Running in d9620a194920
+ ---> 1fba7d2be4d2
 Step 5 : ENV APACHE_LOG_DIR /var/log/apache2
- ---> Running in 3911c04773ee
- ---> 78c7136b5ad4
+ ---> Running in 3f34c474ae62
+ ---> 4e2abc04e333
 Step 6 : ADD puppet /root/puppet
- ---> 3c2defb26f70
-Successfully built 3c2defb26f70
-Removing intermediate container 9385d7e6b174
-Removing intermediate container 2f7cb94d1eab
-Removing intermediate container 2bf8cc4759e8
-Removing intermediate container 278425b4ac73
-Removing intermediate container 3911c04773ee
-Removing intermediate container 77e18af8d87a
-Wating for container cc4cc2dd48f3
+ ---> df864e8c7aa0
+Successfully built df864e8c7aa0
+Removing intermediate container debeb31cb91b
+Removing intermediate container 519c403259d6
+Removing intermediate container 5c1433e651c8
+Removing intermediate container d9620a194920
+Removing intermediate container 3f34c474ae62
+Removing intermediate container 5c6fd9a7ca8c
+Wating for container 4e73b43a324e
 0
-Committing changes and shutting down container cc4cc2dd48f3
-75023aa1a6038bc91d47880fd7f7a82fbe996a42317fd34b2ce1f667ac4b56a6
-cc4cc2dd48f3
-cc4cc2dd48f3
-Run finished product... 5c86dbf51e210a64ddea91351de555b2ce2f1717eef7bb11e290e51aee317f9d
+Committing changes and shutting down container 4e73b43a324e
+2206986b5809016db77ae52952fffb206a6ccc4b0a47884d438add1ae6c20659
+4e73b43a324e
+4e73b43a324e
+Run finished product... 7fa6944ebee8b70545d8977f6925e6a74f6d4100f0f30c64ba6af138502cabf2
 OK
 ```
 
+So what do we have?
+
+```
+angel:~/projects/bootstrap-vhosts master *= >>> sudo docker -H tcp://relvpc22:4243 ps
+CONTAINER ID        IMAGE                         COMMAND                CREATED             STATUS              PORTS                                    NAMES
+7fa6944ebee8        windowsrefund/apache:latest   /usr/sbin/apache2 -D   5 minutes ago       Up 2 minutes        0.0.0.0:80->80/tcp, 0.0.0.0:81->81/tcp   hopeful_shockley
+```
+
+Any love?
+
+```
+angel:~/projects/bootstrap-vhosts master *= >>> curl relvpc22:81
+<html>
+  <head></head>
+  <body>
+    Hello World!
+  </body>
+</html>
+```
+
+OK!
+
+```
+angel:~/projects/bootstrap-vhosts master *= >>> curl relvpc22:80
+<html><body><h1>It works!</h1>
+<p>This is the default web page for this server.</p>
+<p>The web server software is running but no content has been added, yet.</p>
+</body></html>
+```
+
+Boo!!
 
