@@ -29,11 +29,7 @@ echo "Wating for container $CID"
 $DOCKER wait $CID
 
 echo "Committing changes and shutting down container $CID"
-$DOCKER commit -m="Puppetized" \
-  --env APACHE_RUN_USER=www-data \
-  --env APACHE_RUN_GROUP=www-data \
-  --env APACHE_LOG_DIR=/var/log/apache2 \
-  --run='{ "Cmd": ["/usr/sbin/apache2 -D FOREGROUND"] }' $CID $DOCKER_REPO
+$DOCKER commit -m="Puppetized" --run='{ "Cmd": ["/usr/sbin/apache2 -D FOREGROUND"] }' $CID $DOCKER_REPO
 
 $DOCKER stop $CID
 $DOCKER rm $CID
