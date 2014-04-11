@@ -6,9 +6,17 @@ class apache {
 
 	package { $packages: ensure => installed }
 
-  file { "/etc/apache2/site-enabled/000-default":
-    ensure => absent,
-    require => Package[$packages]
-  }
 
+  # remove the default vhost and clobber ports.conf so
+  # we can avoid having to manage apache2.conf
+
+  file {
+    "/etc/apache2/site-enabled/000-default":
+      ensure => absent,
+      require => Package[$packages];
+    "/etc/apache2/ports.conf":
+      ensure => present,
+      content => "",
+      require => Package[$packages];
+  }
 }
