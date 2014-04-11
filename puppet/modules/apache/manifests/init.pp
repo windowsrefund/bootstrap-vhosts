@@ -21,7 +21,7 @@ class apache {
   }
 
   service { apache2:
-    ensure => stopped
+    ensure => stopped,
     enable => false,
     require => Package[$packages],
   }
