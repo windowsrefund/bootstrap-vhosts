@@ -6,4 +6,9 @@ class apache {
 
 	package { $packages: ensure => installed }
 
+  file { "/etc/apache2/site-enabled/000-default":
+    ensure => absent,
+    require => Package[$packages]
+  }
+
 }
