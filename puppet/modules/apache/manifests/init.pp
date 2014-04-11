@@ -19,4 +19,10 @@ class apache {
       content => "",
       require => Package[$packages];
   }
+
+  service { apache2:
+    ensure => stopped
+    enable => false,
+    require => Package[$packages],
+  }
 }

@@ -18,6 +18,13 @@ define apache::vhost(
 			source => "puppet:///modules/apache/$name",
 			recurse => true,
 			require => Package[apache2];
-		
+    "link-$name":
+      path => "/etc/apache2/sites-enabled/${name}",
+      ensure => $enabled ? {
+        true => link,
+        default => absent,
+      },
+      target => "${apache::conf_dir}/${name}.conf",
+      require => File["conf-$name"];
 	}
 }	
