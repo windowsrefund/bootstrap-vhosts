@@ -1,13 +1,6 @@
-<VirtualHost: *:<%= port %>>
+<VirtualHost *:<%= port %>>
 	ServerName <%= name %>
 	ServerAdmin webmaster@<%= domain %>
-	ErrorLog logs/error_log_<%= name %>
-	CustomLog logs/access_log_<%= name %> combined
 	DirectoryIndex index.html index.php
-	DocumentRoot <%= scope.lookupvar 'apache::doc_root_dir'%>/<%= name %>
-	<Directory "<%= scope.lookupvar 'apache::doc_root_dir'%>/<%= name %>">
-		Options Indexes FollowSymlinks
-		Override None
-		IndexOptions -FancyIndexing +FoldersFirst
-	</Directory>
+	DocumentRoot <%= scope.lookupvar 'apache::doc_root_dir' %>/<%= name %>
 </VirtualHost>
